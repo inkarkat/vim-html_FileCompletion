@@ -8,10 +8,19 @@ function! s:DetermineBaseDir()
     " TODO: Recurse upward until no *.html found.
 endfunction
 function! s:FindMatches( base )
-    let l:decodedBase = subs#URL#Decode(a:base)
+    let l:base = a:base
+    let l:baseUrl = ''
+    if exists('b:baseurl') && ! empty(b:baseurl) && strpart(a:base, 0, len(b:baseurl)) ==# b:baseurl
+	let l:baseUrl = b:baseurl
+	let l:base = strpart(a:base, len(b:baseurl))
+	if empty(l:base)
+	    let l:base = '/'
+	    let l:baseUrl = substitute(b:baseurl, '/$', '', '')
+	endif
+    endif
 
     let l:baseDirspec = ''
-    if a:base =~# '^/'
+    if l:base =~# '^/'
 	if ! exists('b:basedir')
 	    call s:DetermineBaseDir()
 	endif
@@ -19,14 +28,15 @@ function! s:FindMatches( base )
 	    let l:baseDirspec = substitute(substitute(b:basedir, '\\', '/', 'g'), '/$', '', '')
 	endif
     endif
-
+"****D echomsg '****' string(l:base)
+    let l:decodedBase = subs#URL#Decode(l:base)
     if empty(l:baseDirspec)
 	let l:files = s:FindFiles(l:decodedBase)
     else
 	let l:files = map(s:FindFiles(l:baseDirspec . l:decodedBase), printf('strpart(v:val, %d)', len(l:baseDirspec)))
     endif
 
-    return map(l:files, '{ "word": subs#URL#FilespecEncode(v:val), "abbr": v:val }')
+    return map(l:files, '{ "word": l:baseUrl . subs#URL#FilespecEncode(v:val), "abbr": l:baseUrl . v:val }')
 endfunction
 function! ft#html_filecompletion#FileComplete( findstart, base )
     if a:findstart
