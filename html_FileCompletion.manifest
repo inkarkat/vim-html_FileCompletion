@@ -1,0 +1,5 @@
+autoload/escapings.vim
+autoload/ft/html/FileCompletion.vim
+autoload/subs/URL.vim
+ftplugin/html_FileCompletion.vim
+doc/html_FileCompletion.txt
