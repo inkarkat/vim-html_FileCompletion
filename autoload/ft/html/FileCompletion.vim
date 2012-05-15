@@ -1,6 +1,8 @@
 " ft/html/FileCompletion.vim: Base dir- and URL-aware file completion for HTML links.
 "
 " DEPENDENCIES:
+"   - escapings.vim autoload script (unless CWD is set to the file's director,
+"     or 'autochdir' is set)
 "   - subs/URL.vim autoload script
 "
 " Copyright: (C) 2012 Ingo Karkat
@@ -9,13 +11,27 @@
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
 "
 " REVISION	DATE		REMARKS
+"   1.00.002	15-May-2012	Need to :chdir to the file's directory to get
+"				glob results relative to the file.
 "	001	09-May-2012	file creation
 
 function! s:CanonicalizeFilespec( filespec )
     return substitute(a:filespec, '\\', '/', 'g') . (isdirectory(a:filespec) ? '/' : '')
 endfunction
 function! s:FindFiles( base )
-    return map(split(glob(a:base . '*'), "\n"), 's:CanonicalizeFilespec(v:val)')
+    if expand('%:h') !=# '.'
+	" Need to change into the file's directory first to get glob results
+	" relative to the file.
+	let l:save_cwd = getcwd()
+	chdir! %:p:h
+    endif
+    try
+	return map(split(glob(a:base . '*'), "\n"), 's:CanonicalizeFilespec(v:val)')
+    finally
+	if exists('l:save_cwd')
+	    execute 'chdir!' escapings#fnameescape(l:save_cwd)
+	endif
+    endtry
 endfunction
 function! s:DetermineBaseDir()
     " TODO: Recurse upward until no *.html found.
