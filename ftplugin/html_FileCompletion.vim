@@ -17,4 +17,10 @@ if ! hasmapto('<Plug>(HtmlFileComplete)', 'i')
     let b:undo_ftplugin = (exists('b:undo_ftplugin') ? b:undo_ftplugin . '|' : '') . 'iunmap <buffer> <C-x><C-f>'
 endif
 
+let s:fileSelection = [function('ft#html#FileConvert#FileSelection')]
+call TextTransform#MakeMappings('<buffer>', '', 'ft#html#FileConvert#RelToAbs', s:fileSelection)
+if ! hasmapto('<Plug>TextTft#html#FileConvert#RelToAbsLine', 'n')
+    nmap <buffer> <Leader>sfra <Plug>TextTft#html#FileConvert#RelToAbsLine
+endif
+
 " vim: set ts=8 sts=4 sw=4 noexpandtab ff=unix fdm=syntax :
