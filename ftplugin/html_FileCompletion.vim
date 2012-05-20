@@ -18,9 +18,9 @@ if ! hasmapto('<Plug>(HtmlFileComplete)', 'i')
 endif
 
 let s:fileSelection = [function('ft#html#FileConvert#FileSelection')]
-call TextTransform#MakeMappings('<buffer>', '', 'ft#html#FileConvert#RelToAbs', s:fileSelection)
-if ! hasmapto('<Plug>TextTft#html#FileConvert#RelToAbsLine', 'n')
-    nmap <buffer> <Leader>sfra <Plug>TextTft#html#FileConvert#RelToAbsLine
+call TextTransform#MakeMappings('<buffer>', '', 'ft#html#FileConvert#Do', s:fileSelection)
+if ! hasmapto('<Plug>TextTft#html#FileConvert#DoLine', 'n')
+    nmap <buffer> <Leader>sf <Plug>TextTft#html#FileConvert#DoLine
 endif
 
 " vim: set ts=8 sts=4 sw=4 noexpandtab ff=unix fdm=syntax :
