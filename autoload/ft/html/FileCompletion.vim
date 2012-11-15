@@ -12,6 +12,8 @@
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
 "
 " REVISION	DATE		REMARKS
+"   1.11.004	12-Jun-2012	FIX: Do not clobber the global CWD when the
+"				buffer has a local CWD set.
 "   1.10.003	16-May-2012	Implement auto-discovery of the document root.
 "   1.00.002	15-May-2012	Need to :chdir to the file's directory to get
 "				glob results relative to the file.
@@ -22,13 +24,14 @@ function! s:FindFiles( base )
 	" Need to change into the file's directory first to get glob results
 	" relative to the file.
 	let l:save_cwd = getcwd()
-	chdir! %:p:h
+	let l:chdirCommand = (haslocaldir() ? 'lchdir!' : 'chdir!')
+	execute l:chdirCommand '%:p:h'
     endif
     try
 	return map(split(glob(a:base . '*'), "\n"), 'ft#html#FileCompletion#Filespec#Canonicalize(v:val)')
     finally
 	if exists('l:save_cwd')
-	    execute 'chdir!' escapings#fnameescape(l:save_cwd)
+	    execute l:chdirCommand escapings#fnameescape(l:save_cwd)
 	endif
     endtry
 endfunction
