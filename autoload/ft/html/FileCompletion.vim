@@ -63,7 +63,7 @@ function! s:FindMatches( base )
 endfunction
 function! ft#html#FileCompletion#FileComplete( findstart, base )
     if a:findstart
-	" Locate the start of the keyword.
+	" Locate the start of the filename.
 	let l:startCol = searchpos('\f*\%#', 'bn', line('.'))[1]
 	if l:startCol == 0
 	    let l:startCol = col('.')
