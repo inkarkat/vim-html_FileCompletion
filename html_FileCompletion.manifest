@@ -1,4 +1,3 @@
-autoload/escapings.vim
 autoload/ft/html/FileCompletion.vim
 autoload/ft/html/FileCompletion/BaseDir.vim
 autoload/subs/URL.vim
