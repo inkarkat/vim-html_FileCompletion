@@ -2,16 +2,17 @@
 "
 " DEPENDENCIES:
 "   - ft/html/FileCompletion/BaseDir.vim autoload script (for auto-discovery)
-"   - escapings.vim autoload script (unless CWD is set to the file's director,
-"     or 'autochdir' is set)
+"   - ingo/compat.vim autoload script (unless CWD is set to the file's
+"     directory, or 'autochdir' is set)
 "   - subs/URL.vim autoload script
 "
-" Copyright: (C) 2012 Ingo Karkat
+" Copyright: (C) 2012-2013 Ingo Karkat
 "   The VIM LICENSE applies to this script; see ':help copyright'.
 "
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
 "
 " REVISION	DATE		REMARKS
+"   1.12.005	08-Aug-2013	Move escapings.vim into ingo-library.
 "   1.11.004	12-Jun-2012	FIX: Do not clobber the global CWD when the
 "				buffer has a local CWD set.
 "   1.10.003	16-May-2012	Implement auto-discovery of the document root.
@@ -31,7 +32,7 @@ function! s:FindFiles( base )
 	return map(split(glob(a:base . '*'), "\n"), 'ft#html#FileCompletion#Filespec#Canonicalize(v:val)')
     finally
 	if exists('l:save_cwd')
-	    execute l:chdirCommand escapings#fnameescape(l:save_cwd)
+	    execute l:chdirCommand ingo#compat#fnameescape(l:save_cwd)
 	endif
     endtry
 endfunction
