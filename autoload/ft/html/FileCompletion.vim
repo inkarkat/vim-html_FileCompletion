@@ -2,16 +2,17 @@
 "
 " DEPENDENCIES:
 "   - ft/html/FileCompletion/BaseDir.vim autoload script (for auto-discovery)
+"   - ingo/codec/URL.vim autoload script
 "   - ingo/compat.vim autoload script (unless CWD is set to the file's
 "     directory, or 'autochdir' is set)
-"   - subs/URL.vim autoload script
 "
-" Copyright: (C) 2012-2013 Ingo Karkat
+" Copyright: (C) 2012-2014 Ingo Karkat
 "   The VIM LICENSE applies to this script; see ':help copyright'.
 "
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
 "
 " REVISION	DATE		REMARKS
+"   1.12.006	20-May-2014	Use URL codec from ingo-library.
 "   1.12.005	08-Aug-2013	Move escapings.vim into ingo-library.
 "   1.11.004	12-Jun-2012	FIX: Do not clobber the global CWD when the
 "				buffer has a local CWD set.
@@ -53,14 +54,14 @@ function! s:FindMatches( base )
 	let l:baseDirspec = ft#html#FileCompletion#BaseDir#Get()
     endif
 "****D echomsg '****' string(l:base)
-    let l:decodedBase = subs#URL#Decode(l:base)
+    let l:decodedBase = ingo#codec#URL#Decode(l:base)
     if empty(l:baseDirspec)
 	let l:files = s:FindFiles(l:decodedBase)
     else
 	let l:files = map(s:FindFiles(l:baseDirspec . l:decodedBase), printf('strpart(v:val, %d)', len(l:baseDirspec)))
     endif
 
-    return map(l:files, '{ "word": l:baseUrl . subs#URL#FilespecEncode(v:val), "abbr": l:baseUrl . v:val }')
+    return map(l:files, '{ "word": l:baseUrl . ingo#codec#URL#FilespecEncode(v:val), "abbr": l:baseUrl . v:val }')
 endfunction
 function! ft#html#FileCompletion#FileComplete( findstart, base )
     if a:findstart
