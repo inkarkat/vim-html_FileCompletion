@@ -9,6 +9,9 @@
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
 "
 " REVISION	DATE		REMARKS
+"   1.12.003	01-Aug-2013	ingo#fs#traversal#FindLastContainedInUpDir now
+"				defaults to the current buffer's directory; omit
+"				the argument.
 "   1.12.002	31-Jul-2013	Delegate the discovery of the document root to
 "				ingo#fs#traversal#FindLastContainedInUpDir().
 "   1.10.001	16-May-2012	file creation
@@ -20,7 +23,7 @@ function! s:GetDocRootGlob()
 endfunction
 function! ft#html#FileCompletion#BaseDir#Discover()
     " Traverse directory hierarchy upward until no *.html file is found any more.
-    let b:basedir = ingo#fs#traversal#FindLastContainedInUpDir(s:GetDocRootGlob(), expand('%:p:h'))
+    let b:basedir = ingo#fs#traversal#FindLastContainedInUpDir(s:GetDocRootGlob())
 endfunction
 
 function! ft#html#FileCompletion#BaseDir#Get()
