@@ -2,6 +2,7 @@
 "
 " DEPENDENCIES:
 "   - ft/html/FileCompletion/BaseDir.vim autoload script (for auto-discovery)
+"   - ft/html/FileCompletion/URL.vim autoload script
 "   - ingo/codec/URL.vim autoload script
 "   - ingo/compat.vim autoload script (unless CWD is set to the file's
 "     directory, or 'autochdir' is set)
@@ -12,8 +13,8 @@
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
 "
 " REVISION	DATE		REMARKS
-"   1.12.006	20-May-2014	Use URL codec from ingo-library.
-"   1.12.005	08-Aug-2013	Move escapings.vim into ingo-library.
+"   1.13.006	20-May-2014	Use URL codec from ingo-library.
+"   1.13.005	08-Aug-2013	Move escapings.vim into ingo-library.
 "   1.11.004	12-Jun-2012	FIX: Do not clobber the global CWD when the
 "				buffer has a local CWD set.
 "   1.10.003	16-May-2012	Implement auto-discovery of the document root.
