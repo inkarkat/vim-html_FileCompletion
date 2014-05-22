@@ -63,10 +63,8 @@ function! s:FindMatches( base )
     let l:baseDirspec = ''
     let l:type = ft#html#FileCompletion#URL#GetType(l:base)
 "****D echomsg '****' string(l:base) string(l:type)
-    if l:type ==# 'abs'
+    if l:type ==# 'abs' || l:type ==# 'filespec' " Try absolute link completion first; With a base of /tmp, /var/www/htdocs/tmp/ should have preference over /tmp.
 	let l:baseDirspec = ft#html#FileCompletion#BaseDir#Get()
-    elseif l:type ==# 'filespec'
-	return s:FindFilespecMatches(a:base)
     endif
 
     let l:decodedBase = ingo#codec#URL#Decode(l:base)
@@ -74,6 +72,12 @@ function! s:FindMatches( base )
 	let l:files = s:FindFiles(l:decodedBase)
     else
 	let l:files = map(s:FindFiles(l:baseDirspec . l:decodedBase), printf('strpart(v:val, %d)', len(l:baseDirspec)))
+    endif
+
+    if empty(l:files) && l:type ==# 'filespec'
+	" The base didn't match any absolute links below the base dir. Fall back
+	" to default filespec completion.
+	return s:FindFilespecMatches(a:base)
     endif
 
     return map(l:files, '{ "word": l:baseUrl . ingo#codec#URL#FilespecEncode(v:val), "abbr": l:baseUrl . v:val }')
