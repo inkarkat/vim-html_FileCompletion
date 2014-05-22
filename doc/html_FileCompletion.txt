@@ -90,9 +90,12 @@ IDEAS						   *html_FileCompletion-ideas*
 ==============================================================================
 HISTORY						 *html_FileCompletion-history*
 
-1.12	RELEASEME
+1.20	RELEASEME
 - Add dependency to ingo-library (vimscript #4433). *** You need to separately
   install ingo-library (vimscript #4433) version 1.019 (or higher)! ***
+
+1.12	21-May-2014
+FIX: Include autoload scripts in Vimball that are missing in version 1.11.
 
 1.11	12-Jun-2012
 FIX: Do not clobber the global CWD when the buffer has a local CWD set.
