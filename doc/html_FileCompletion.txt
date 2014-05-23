@@ -21,8 +21,10 @@ location) to enable completion of absolute (/foo...) and fully qualified
 
 RELATED WORKS								     *
 
-- FilePathConvert.vim (vimscript #4885) converts filespec between absolute,
+- |FilePathConvert.vim| (vimscript #4885) converts filespecs between absolute,
   relative, and URL (file://) formats.
+- |html_PathConvert.vim| (vimscript #0000) converts links between absolute,
+  relative, and fully qualified URL formats.
 
 ==============================================================================
 USAGE						   *html_FileCompletion-usage*
@@ -36,6 +38,9 @@ CTRL-X CTRL-F		Find matches for file names that start with the same
 			stripped off the front. This enables you to complete
 			file links even though they are specified as absolute
 			or fully qualified links in the HTML.
+			When there are no matches within the base directory,
+			this falls back to default, non-URL-escaped file
+			completion (|i_CTRL-X_CTRL-F|).
 
 ==============================================================================
 INSTALLATION				    *html_FileCompletion-installation*
@@ -91,6 +96,10 @@ IDEAS						   *html_FileCompletion-ideas*
 HISTORY						 *html_FileCompletion-history*
 
 1.20	RELEASEME
+- Detect absolute filespecs and handle them like the build-in file completion,
+  as the default mapping overrides that. If the user wants to convert the
+  filespec into a link, she must do this explicitly via the
+  html_PathConvert.vim plugin.
 - Add dependency to ingo-library (vimscript #4433). *** You need to separately
   install ingo-library (vimscript #4433) version 1.019 (or higher)! ***
 
