@@ -63,13 +63,13 @@ DEPENDENCIES				    *html_FileCompletion-dependencies*
 CONFIGURATION				   *html_FileCompletion-configuration*
 
 Set the following variables in autocmds, filetype plugins or a local vimrc:
-								   *b:basedir*
+								   |b:basedir|
 Specifies the local directory that represents the document root of the edited
 HTML file, i.e. where an absolute link starting with "/" points to. To make
 this resistant to changes in the CWD, this should be an absolute dirspec. In a
 local vimrc located at the document root, you could use: >
     let b:basedir = expand('<sfile>:p:h')
-<								   *b:baseurl*
+<								   |b:baseurl|
 Specifies the server location of the |b:basedir| document root; i.e. a fully
 qualified link to the document root, including protocol and hostname.
 
