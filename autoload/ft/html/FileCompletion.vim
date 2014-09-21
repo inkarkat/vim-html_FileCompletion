@@ -30,7 +30,7 @@
 "	001	09-May-2012	file creation
 
 function! s:FindFilespecMatches( base )
-    return map(split(glob(ingo#fs#path#Combine(a:base, '*')), "\n"), '{ "word": v:val }')
+    return map(split(glob(a:base . '*'), "\n"), '{ "word": v:val }')
 endfunction
 function! s:FindFiles( base )
     if expand('%:h') !=# '.'
@@ -73,14 +73,13 @@ function! s:FindMatches( base )
     else
 	let l:files = map(s:FindFiles(l:baseDirspec . l:decodedBase), printf('strpart(v:val, %d)', len(l:baseDirspec)))
     endif
-
-    if empty(l:files) && l:type ==# 'filespec'
-	" The base didn't match any absolute links below the base dir. Fall back
-	" to default filespec completion.
-	return s:FindFilespecMatches(a:base)
+    if ! empty(l:files)
+	return map(l:files, '{ "word": l:baseUrl . ingo#codec#URL#FilespecEncode(v:val), "abbr": l:baseUrl . v:val }')
     endif
 
-    return map(l:files, '{ "word": l:baseUrl . ingo#codec#URL#FilespecEncode(v:val), "abbr": l:baseUrl . v:val }')
+    " The base didn't match any absolute links below the base dir. Fall back to
+    " default filespec completion.
+    return s:FindFilespecMatches(l:type ==# 'filespec' ? ingo#fs#path#Combine(a:base, '') : a:base)
 endfunction
 function! ft#html#FileCompletion#FileComplete( findstart, base )
     if a:findstart
