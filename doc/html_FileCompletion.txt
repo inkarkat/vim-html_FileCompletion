@@ -95,7 +95,7 @@ IDEAS						   *html_FileCompletion-ideas*
 ==============================================================================
 HISTORY						 *html_FileCompletion-history*
 
-1.20	RELEASEME
+1.20	31-May-2014
 - Detect absolute filespecs and handle them like the build-in file completion,
   as the default mapping overrides that. If the user wants to convert the
   filespec into a link, she must do this explicitly via the
