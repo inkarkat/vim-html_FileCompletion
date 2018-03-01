@@ -4,6 +4,7 @@
 "   - ft/html/FileCompletion/BaseDir.vim autoload script (for auto-discovery)
 "   - ft/html/FileCompletion/URL.vim autoload script
 "   - ingo/codec/URL.vim autoload script
+"   - ingo/compat.vim autoload script
 "   - ingo/fs/path.vim autoload script
 "   - ingo/compat.vim autoload script (unless CWD is set to the file's
 "     directory, or 'autochdir' is set)
@@ -14,6 +15,7 @@
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
 "
 " REVISION	DATE		REMARKS
+"   1.21.008	22-Sep-2014	Use ingo#compat#glob().
 "   1.20.007	23-May-2014	Detect absolute filespecs and handle them like
 "				the build-in file completion, as the default
 "				mapping overrides that. If the user wants to
@@ -30,7 +32,7 @@
 "	001	09-May-2012	file creation
 
 function! s:FindFilespecMatches( base )
-    return map(split(glob(a:base . '*'), "\n"), '{ "word": v:val }')
+    return map(ingo#compat#glob(a:base . '*', 0, 1), '{ "word": v:val }')
 endfunction
 function! s:FindFiles( base )
     if expand('%:h') !=# '.'
@@ -41,7 +43,7 @@ function! s:FindFiles( base )
 	execute l:chdirCommand '%:p:h'
     endif
     try
-	return map(split(glob(a:base . '*'), "\n"), 'ft#html#FileCompletion#Filespec#Canonicalize(v:val)')
+	return map(ingo#compat#glob(a:base . '*', 0, 1), 'ft#html#FileCompletion#Filespec#Canonicalize(v:val)')
     finally
 	if exists('l:save_cwd')
 	    execute l:chdirCommand ingo#compat#fnameescape(l:save_cwd)
