@@ -2,5 +2,6 @@ autoload/ft/html/FileCompletion.vim
 autoload/ft/html/FileCompletion/BaseDir.vim
 autoload/ft/html/FileCompletion/Filespec.vim
 autoload/ft/html/FileCompletion/URL.vim
+ftplugin/atom_FileCompletion.vim
 ftplugin/html_FileCompletion.vim
 doc/html_FileCompletion.txt
