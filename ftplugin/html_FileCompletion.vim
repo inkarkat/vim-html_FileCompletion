@@ -17,10 +17,4 @@ if ! hasmapto('<Plug>(HtmlFileComplete)', 'i')
     let b:undo_ftplugin = (exists('b:undo_ftplugin') ? b:undo_ftplugin . '|' : '') . 'iunmap <buffer> <C-x><C-f>'
 endif
 
-let s:fileSelection = [function('ft#html#FileConvert#FileSelection')]
-call TextTransform#MakeMappings('<buffer>', '', 'ft#html#FileConvert#Do', s:fileSelection)
-if ! hasmapto('<Plug>TextTft#html#FileConvert#DoLine', 'n')
-    nmap <buffer> <Leader>sf <Plug>TextTft#html#FileConvert#DoLine
-endif
-
 " vim: set ts=8 sts=4 sw=4 noexpandtab ff=unix fdm=syntax :
