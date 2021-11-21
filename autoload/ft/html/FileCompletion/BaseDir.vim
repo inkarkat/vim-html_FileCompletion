@@ -3,16 +3,16 @@
 " DEPENDENCIES:
 "   - ingo/fs/traversal.vim autoload script
 "
-" Copyright: (C) 2012-2013 Ingo Karkat
+" Copyright: (C) 2012-2014 Ingo Karkat
 "   The VIM LICENSE applies to this script; see ':help copyright'.
 "
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
 "
 " REVISION	DATE		REMARKS
-"   1.12.003	01-Aug-2013	ingo#fs#traversal#FindLastContainedInUpDir now
+"   1.13.003	01-Aug-2013	ingo#fs#traversal#FindLastContainedInUpDir now
 "				defaults to the current buffer's directory; omit
 "				the argument.
-"   1.12.002	31-Jul-2013	Delegate the discovery of the document root to
+"   1.13.002	31-Jul-2013	Delegate the discovery of the document root to
 "				ingo#fs#traversal#FindLastContainedInUpDir().
 "   1.10.001	16-May-2012	file creation
 
