@@ -9,12 +9,13 @@
 "   - ingo/compat.vim autoload script (unless CWD is set to the file's
 "     directory, or 'autochdir' is set)
 "
-" Copyright: (C) 2012-2014 Ingo Karkat
+" Copyright: (C) 2012-2018 Ingo Karkat
 "   The VIM LICENSE applies to this script; see ':help copyright'.
 "
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
 "
 " REVISION	DATE		REMARKS
+"   1.21.009	02-Mar-2018	Use ingo#workingdir#ChdirCommand().
 "   1.21.008	22-Sep-2014	Use ingo#compat#glob().
 "   1.20.007	23-May-2014	Detect absolute filespecs and handle them like
 "				the build-in file completion, as the default
@@ -39,7 +40,7 @@ function! s:FindFiles( base )
 	" Need to change into the file's directory first to get glob results
 	" relative to the file.
 	let l:save_cwd = getcwd()
-	let l:chdirCommand = (haslocaldir() ? 'lchdir!' : 'chdir!')
+	let l:chdirCommand = ingo#workingdir#ChdirCommand()
 	execute l:chdirCommand '%:p:h'
     endif
     try
