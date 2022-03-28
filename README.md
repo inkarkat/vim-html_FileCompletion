@@ -82,6 +82,12 @@ the file glob of what represents files within the document root via:
 
     let g:html_FileCompletion_WithinDocRootGlob = '*.{htm,html,xhtml,asp,gsp,jsp,php}'
 
+If you want to use a different mapping, map your keys to the
+&lt;Plug&gt;(HtmlFileComplete) mapping target _before_ the script is sourced (e.g.
+in ~/ftplugin/html\_00remap.vim):
+
+    imap <buffer> <C-x><C-f> <Plug>(HtmlFileComplete)
+
 CONTRIBUTING
 ------------------------------------------------------------------------------
 

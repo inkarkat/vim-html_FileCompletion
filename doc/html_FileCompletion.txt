@@ -89,6 +89,12 @@ and will then take the previous directory as the document root. You can adapt
 the file glob of what represents files within the document root via: >
     let g:html_FileCompletion_WithinDocRootGlob = '*.{htm,html,xhtml,asp,gsp,jsp,php}'
 <
+						   *html_FileCompletion_remap*
+If you want to use a different mapping, map your keys to the
+<Plug>(HtmlFileComplete) mapping target _before_ the script is sourced (e.g.
+in ~/ftplugin/html_00remap.vim): >
+    imap <buffer> <C-x><C-f> <Plug>(HtmlFileComplete)
+<
 ==============================================================================
 LIMITATIONS				     *html_FileCompletion-limitations*
 
